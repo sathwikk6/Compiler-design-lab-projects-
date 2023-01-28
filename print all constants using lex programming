@@ -1,0 +1,82 @@
+Skip to content
+Product
+Solutions
+Open Source
+Pricing
+Search
+Sign in
+Sign up
+Puvvada123
+/
+CSA-1460-Compiler-Design
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+CSA-1460-Compiler-Design/print all the constants using lex.cpp
+@Puvvada123
+Puvvada123 Create print all the constants using lex.cpp
+Latest commit b61de21 on Oct 9, 2022
+ History
+ 1 contributor
+40 lines (30 sloc)  633 Bytes
+
+%{
+%}
+
+%s A B C DEAD	 // Declaring states
+
+// Rules Section
+%%
+<INITIAL>[0-9]+ BEGIN A;
+<INITIAL>[0-9]+[.][0-9]+ BEGIN B;
+<INITIAL>[A-Za-z_][A-Za-z0-9_]* BEGIN C;
+<INITIAL>[^\n] BEGIN DEAD;
+<INITIAL>\n BEGIN INITIAL; {printf("Not Accepted\n");}
+
+<A>[^\n] BEGIN DEAD;
+<A>\n BEGIN INITIAL; {printf("Integer\n");}
+
+<B>[^\n] BEGIN DEAD;
+<B>\n BEGIN INITIAL; {printf("Float\n");}
+
+<C>[^\n] BEGIN DEAD;
+<C>\n BEGIN INITIAL; {printf("Identifier\n");}
+
+
+<DEAD>[^\n] BEGIN DEAD;
+<DEAD>\n BEGIN INITIAL; {printf("Invalid\n");}
+
+%%
+
+// Auxiliary Functions
+int yywrap()
+{
+return 1;
+}
+
+int main()
+{
+printf("Enter String\n");
+yylex();
+return 0;
+}
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+CSA-1460-Compiler-Design/print all the constants using lex.cpp at main · Puvvada123/CSA-1460-Compiler-Design · GitHub
